@@ -8,7 +8,8 @@ const roll = (pins, state) => {
   return {
     ...state,
     status: isStrike ? STATUS.STRIKE : STATUS.NORMAL,
-    score: state.score + pins,
+    score: isStrike ? state.score : state.score + pins,
+    acc: isStrike ? 10 : 0,
   };
 }
 const getScore = (rolls) => {
@@ -16,6 +17,7 @@ const getScore = (rolls) => {
     frame: [],
     status: STATUS.NORMAL,
     score: 0,
+    acc: 0,
   };;
 
   for (i = 0; i < rolls.length; i++) {

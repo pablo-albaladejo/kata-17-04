@@ -10,6 +10,7 @@ describe('Basic  rules', () => {
       frame: [],
       status: STATUS.NORMAL,
       score: 0,
+      acc: 0,
     };
 
     const firstRoll = 1; const secondRoll = 4;
@@ -31,14 +32,16 @@ describe('Basic  rules', () => {
       frame: [],
       status: STATUS.NORMAL,
       score: 0,
+      acc: 0,
     };;
 
     const firstRoll = 10;
     let firstRollState;
 
-    it('10 pins with normal previous status', () => {
+    it('accumulates 10 points', () => {
       firstRollState = BowlingGate.roll(firstRoll, prevState);
       expect(firstRollState.status).to.equal(STATUS.STRIKE);
+      expect(firstRollState.acc).to.equal(10);
     });
 
   })
@@ -52,6 +55,7 @@ describe('Full play', () => {
       frame: [],
       status: STATUS.NORMAL,
       score: 0,
+      acc: 0,
     };
     const rolls = [1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 1, 7, 3, 6, 4, 10, 2, 8, 6]
     score = BowlingGate.getScore(rolls, prevState);
