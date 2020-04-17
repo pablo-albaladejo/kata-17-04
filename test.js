@@ -1,12 +1,16 @@
 const expect = require('expect.js');
 const BowlingGate = require('./BowlingGate.js');
-const { STATUS, initState } = require('./commons.js');
+const { STATUS } = require('./commons.js');
 
 describe('Basic  rules', () => {
 
   describe('Basic Frame', () => {
 
-    const prevState = initState;
+    const prevState = {
+      frame: [],
+      status: STATUS.NORMAL,
+      score: 0,
+    };
 
     const firstRoll = 1; const secondRoll = 4;
     let firstRollState; let sencodRollState;
@@ -23,7 +27,11 @@ describe('Basic  rules', () => {
   })
 
   describe('Stike Fame', () => {
-    const prevState = initState;
+    const prevState = {
+      frame: [],
+      status: STATUS.NORMAL,
+      score: 0,
+    };;
 
     const firstRoll = 10;
     let firstRollState;
@@ -40,8 +48,13 @@ describe('Basic  rules', () => {
 describe('Full play', () => {
 
   it('Example play', () => {
+    const prevState = {
+      frame: [],
+      status: STATUS.NORMAL,
+      score: 0,
+    };
     const rolls = [1, 4, 4, 5, 6, 4, 5, 5, 10, 0, 1, 7, 3, 6, 4, 10, 2, 8, 6]
-    score = BowlingGate.getScore(rolls, initState);
+    score = BowlingGate.getScore(rolls, prevState);
     expect(score).to.equal(133);
   });
 

@@ -1,13 +1,22 @@
-const { STATUS, initState } = require('./commons.js');
+const {
+  STATUS
+} = require('./commons.js');
 
 const roll = (pins, state) => {
+  const isStrike = state.frame.length === 0 && pins === 10;
+  state.frame.push(pins);
   return {
-    status: state.STATUS,
+    ...state,
+    status: isStrike ? STATUS.STRIKE : STATUS.NORMAL,
     score: state.score + pins,
   };
 }
 const getScore = (rolls) => {
-  let state = initState;
+  let state = {
+    frame: [],
+    status: STATUS.NORMAL,
+    score: 0,
+  };;
 
   for (i = 0; i < rolls.length; i++) {
     state = roll(rolls[i], state)
@@ -22,8 +31,6 @@ const run = () => {
   console.log("rolls: " + rolls.join(' '))
   console.log("score: " + score)
 }
-
-run();
 
 module.exports = {
   roll,
