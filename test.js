@@ -7,6 +7,7 @@ describe('Basic  rules', () => {
   describe('Basic Frame', () => {
 
     const prevState = {
+      rolls: [],
       frame: [],
       status: STATUS.NORMAL,
       score: 0,
@@ -29,6 +30,7 @@ describe('Basic  rules', () => {
 
   describe('Stike Frame', () => {
     const prevState = {
+      rolls: [],
       frame: [],
       status: STATUS.NORMAL,
       score: 0,
@@ -45,6 +47,33 @@ describe('Basic  rules', () => {
 
   })
 
+  describe('Frame Transition', () => {
+    const prevState = {
+      rolls: [],
+      frame: [],
+      status: STATUS.NORMAL,
+      score: 0,
+      acc: 0,
+    };
+
+    const firstRoll = 1; const secondRoll = 4; const thirdRoll = 5;
+    let firstRollState; let sencodRollState; let thirdRollState;
+
+    it('add first roll', () => {
+      firstRollState = BowlingGame.roll(firstRoll, prevState);
+      expect(firstRollState.frame).to.eql([firstRoll]);
+    });
+
+    it('add second roll', () => {
+      sencodRollState = BowlingGame.roll(secondRoll, firstRollState);
+      expect(sencodRollState.frame).to.eql([firstRoll, secondRoll]);
+    });
+
+    it('resets at third roll', () => {
+      thirdRollState = BowlingGame.roll(thirdRoll, sencodRollState);
+      expect(thirdRollState.frame).to.eql([thirdRoll]);
+    });
+  })
 
 })
 
